@@ -1,0 +1,20 @@
+  * {
+  box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Lato', sans-serif; 
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #ffffff;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+  
