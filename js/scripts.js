@@ -29,8 +29,6 @@ let pokemonRepository = (function () {
         if (typeof pokemon === 'object' && compare(Object.keys(pokemon), ['name', 'height', 'types', 'abilities'])) {
             pokemonList.push(pokemon);
         }
-        console.log(typeof pokemon === 'object')
-        console.log(compare(Object.keys(pokemon), ['name', 'height', 'types', 'abilities']))
     }
 
 
