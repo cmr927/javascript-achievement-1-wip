@@ -8,7 +8,6 @@
     font-size: 16px;
     line-height: 1.6;
     background-color: #ffffff;
-    text-align: center;
     margin-top: 30px;
   }
   
@@ -16,5 +15,27 @@
     font-size: 30px;
     font-weight: 700;
     line-height: 1.5;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .button-class {
+    background-color: #4caf50; /* green */
+    border: none;
+    color: #ffffff;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: in-line block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #fff;
+    color: black;
+    border: 2px solid #4caf50
   }
   

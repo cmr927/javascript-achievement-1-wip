@@ -1,6 +1,5 @@
 let pokemonRepository = (function () {
-    let pokemonList = []
-    pokemonList = [
+    let pokemonList = [
         {
             name: 'Geodude',
             height: 0.4,
@@ -26,39 +25,55 @@ let pokemonRepository = (function () {
 
 
     function add(pokemon) {
-        if (typeof pokemon === 'object' && compare(Object.keys(pokemon), ['name', 'height', 'types', 'abilities'])) {
+        if (
+            typeof pokemon === 'object' &&
+            'name' in pokemon &&
+            'height' in pokemon &&
+            'types' in pokemon &&
+            'abilities' in pokemon
+        ) {
             pokemonList.push(pokemon);
+        } else {
+            console.log('pokemon is not correct');
         }
     }
-
-
-    function compare(array1, array2) {
-        var is_same = (array1.length == array2.length) && array1.every(function (element, index) {
-            return element === array2[index];
-        }
-        );
-
-        return is_same
-
-    }
-
     function getAll() {
         return pokemonList;
     }
 
+    function showDetails(pokemon) {
+
+        console.log(pokemon);
+    }
+
+    function addListItem(pokemon) {
+        let pokemonList = document.querySelector('.pokemon-list');
+        let listpokemon = document.createElement('li');
+        let button = document.createElement('button');
+        button.innerText = pokemon.name;
+        button.classList.add('button-class');
+        listpokemon.appendChild(button);
+        pokemonList.appendChild(listpokemon);
+        button.addEventListener('click', function (event) {
+            showDetails(pokemon.name)
+            console.log();
+        }
+
+        );
+    }
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem
     };
+}
+    ()
+)
 
-})();
+pokemonRepository.add({ name: 'Pikachu', height: 0.3, types: ['electric'], abilities: ['Static', 'Lightningrod'] });
+
+console.log(pokemonRepository.getAll());
 
 pokemonRepository.getAll().forEach(function (pokemon) {
-
-    if (pokemon.height > 1.3) { //if pokemon's height is over 1.4 meters also print 'Wow that's big!'
-        document.write(pokemon.name + ' (height: ' + pokemon.height + ' meters) - Wow, that\'s big! <br>');
-    }
-    else {
-        document.write(pokemon.name + ' (height: ' + pokemon.height + ' meters) <br>');
-    }
-})
+    pokemonRepository.addListItem(pokemon);
+});
