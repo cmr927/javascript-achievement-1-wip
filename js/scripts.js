@@ -66,8 +66,7 @@ let pokemonRepository = (function () {
         getAll: getAll,
         addListItem: addListItem
     };
-}()
-)
+}())
 
 pokemonRepository.add({ name: 'Pikachu', height: 0.3, types: ['electric'], abilities: ['Static', 'Lightningrod'] });
 
