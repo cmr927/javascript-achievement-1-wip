@@ -23,7 +23,6 @@ let pokemonRepository = (function () {
 
     ];
 
-
     function add(pokemon) {
         if (
             typeof pokemon === 'object' &&
@@ -37,13 +36,14 @@ let pokemonRepository = (function () {
             console.log('pokemon is not correct');
         }
     }
+
     function getAll() {
         return pokemonList;
     }
 
     function showDetails(pokemon) {
 
-        console.log(pokemon);
+        console.log(pokemon.name);
     }
 
     function addListItem(pokemon) {
@@ -55,7 +55,7 @@ let pokemonRepository = (function () {
         listpokemon.appendChild(button);
         pokemonList.appendChild(listpokemon);
         button.addEventListener('click', function (event) {
-            showDetails(pokemon.name)
+            showDetails(pokemon)
             console.log();
         }
 
@@ -66,8 +66,7 @@ let pokemonRepository = (function () {
         getAll: getAll,
         addListItem: addListItem
     };
-}
-    ()
+}()
 )
 
 pokemonRepository.add({ name: 'Pikachu', height: 0.3, types: ['electric'], abilities: ['Static', 'Lightningrod'] });
