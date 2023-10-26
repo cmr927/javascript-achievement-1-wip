@@ -1,35 +1,11 @@
 let pokemonRepository = (function () {
-    let pokemonList = [
-        {
-            name: 'Geodude',
-            height: 0.4,
-            types: ['Rock', 'Ground'],
-            abilities: ['Sturdy', 'Sand-veil', 'Rock-head']
-        },
-
-        {
-            name: 'Graveler',
-            height: 1,
-            types: ['Rock', 'Ground'],
-            abilities: ['Sturdy', 'Sand-veil', 'Rock-head'],
-        },
-
-        {
-            name: 'Golem',
-            height: 1.4,
-            types: ['Rock', 'Ground'],
-            abilities: ['Sturdy', 'Sand-veil', 'Rock-head'],
-        },
-
-    ];
+    let pokemonList = [];
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     function add(pokemon) {
         if (
             typeof pokemon === 'object' &&
-            'name' in pokemon &&
-            'height' in pokemon &&
-            'types' in pokemon &&
-            'abilities' in pokemon
+            'name' in pokemon
         ) {
             pokemonList.push(pokemon);
         } else {
@@ -41,11 +17,6 @@ let pokemonRepository = (function () {
         return pokemonList;
     }
 
-    function showDetails(pokemon) {
-
-        console.log(pokemon);
-    }
-
     function addListItem(pokemon) {
         let pokemonList = document.querySelector('.pokemon-list');
         let listpokemon = document.createElement('li');
@@ -55,23 +26,69 @@ let pokemonRepository = (function () {
         listpokemon.appendChild(button);
         pokemonList.appendChild(listpokemon);
         button.addEventListener('click', function (event) {
-            showDetails(pokemon)
-            console.log();
-        }
-
-        );
+            showDetails(pokemon);
+        });
     }
+    function showLoadingMessage() {
+        console.log('Loading')
+    }
+    function hideLoadingMessage () {
+        console.log('Loaded')
+    }
+
+    function loadList() {
+        showLoadingMessage()
+        return fetch(apiUrl).then(function (response) {
+            return response.json();
+        }).then(function (json) {
+            json.results.forEach(function (item) {
+                let pokemon = {
+                    name: item.name,
+                    detailsUrl: item.url
+                };
+                add(pokemon);
+                console.log(pokemon);
+            });
+            hideLoadingMessage()
+        }).catch(function (e) {
+            console.error(e);
+        })
+    }
+
+    function loadDetails(item) {
+        showLoadingMessage()
+        let url = item.detailsUrl;
+        return fetch(url).then(function (response) {
+            return response.json();
+        }).then(function (details) {
+            // Now we add the details to the item
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+            hideLoadingMessage()
+        }).catch(function (e) {
+            console.error(e);
+        });
+    }
+
+    function showDetails(item) {
+        pokemonRepository.loadDetails(item).then(function () {
+            console.log(item);
+        });
+    }
+
     return {
         add: add,
         getAll: getAll,
-        addListItem: addListItem
+        addListItem: addListItem,
+        loadList: loadList,
+        loadDetails: loadDetails,
+        showDetails: showDetails
     };
 }())
 
-pokemonRepository.add({ name: 'Pikachu', height: 0.3, types: ['electric'], abilities: ['Static', 'Lightningrod'] });
-
-console.log(pokemonRepository.getAll());
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-    pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function () {
+    pokemonRepository.getAll().forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });
 });
