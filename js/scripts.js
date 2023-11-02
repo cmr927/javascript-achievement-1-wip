@@ -121,12 +121,6 @@ let pokemonRepository = (function () {
         }
     });
 
-    document.querySelector('#modal-container').addEventListener('click', () => {
-        showModal(pokemon.name, pokemon);
-    });
-
-    // THE RETURN STATEMENT HERE
-
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
             showModal(item.name, item.height/10 + ' ' + 'meters', item.imageUrl);
