@@ -20,13 +20,20 @@ let pokemonRepository = (function () {
 
     function addListItem(pokemon) {
         let pokemonList = document.querySelector('.pokemon-list');
-        let listpokemon = document.createElement('li');
-        listpokemon.classList.add('list-group-item');
+        let listpokemon = document.createElement('div');
+        // listpokemon.classList.add('list-group-item');
+        listpokemon.classList.add('col-md-3');
+        listpokemon.classList.add('col-sm-4');
+        listpokemon.classList.add('flex-column');
+        listpokemon.classList.add('pokebutton');
         let button = document.createElement('button');
         button.classList.add('btn')
         button.classList.add('btn-info')
         button.innerText = pokemon.name;
         button.classList.add('button-class');
+        button.classList.add('w-75');
+        button.classList.add('m-2');
+        // button.classList.add('pokebutton');
         button.setAttribute('data-bs-toggle', 'modal');
         button.setAttribute('data-bs-target', '#pokeModal')
         button.setAttribute('type', 'button')
@@ -70,6 +77,24 @@ let pokemonRepository = (function () {
             console.error(e);
         });
     }
+
+    function searchPokemon() { 
+	    let input = document.getElementById('searchbar').value 
+	    input = input.toLowerCase(); 
+	    let x = document.getElementsByClassName('pokebutton'); 
+	
+	    for (i = 0; i < x.length; i++) { 
+           let pokebutton = x[i].getElementsByClassName('btn')[0];
+           let btn = pokebutton.innerText.toLowerCase()
+		    if (!btn.includes(input)) { 
+                x[i].style.display="none"; 
+            } 
+            else { 
+                x[i].style.display="";				 
+            } 
+        } 
+} 
+
 
     function showModal(title, text, img, imgBack) {
         let imageElement = document.createElement('img');
@@ -118,7 +143,8 @@ let pokemonRepository = (function () {
         addListItem: addListItem,
         loadList: loadList,
         loadDetails: loadDetails,
-        showDetails: showDetails
+        showDetails: showDetails,
+        searchPokemon: searchPokemon
     };
 
 })();
