@@ -21,7 +21,6 @@ let pokemonRepository = (function () {
     function addListItem(pokemon) {
         let pokemonList = document.querySelector('.pokemon-list');
         let listpokemon = document.createElement('div');
-        // listpokemon.classList.add('list-group-item');
         listpokemon.classList.add('col-md-3');
         listpokemon.classList.add('col-sm-4');
         listpokemon.classList.add('flex-column');
@@ -33,7 +32,6 @@ let pokemonRepository = (function () {
         button.classList.add('button-class');
         button.classList.add('w-75');
         button.classList.add('m-2');
-        // button.classList.add('pokebutton');
         button.setAttribute('data-bs-toggle', 'modal');
         button.setAttribute('data-bs-target', '#pokeModal')
         button.setAttribute('type', 'button')
@@ -54,7 +52,6 @@ let pokemonRepository = (function () {
                     detailsUrl: item.url
                 };
                 add(pokemon);
-                console.log(pokemon);
             });
 
         }).catch(function (e) {
@@ -110,7 +107,6 @@ let pokemonRepository = (function () {
 
 
         imageElementBack.setAttribute('src', imgBack);
-        console.log(imgBack)
         imageElementBack.setAttribute('width', '304');
         imageElementBack.setAttribute('height', '228');
         imageElementBack.setAttribute('alt', 'pokemon picture back');
@@ -157,7 +153,6 @@ let pokemonRepository = (function () {
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
             showModal(item.name, ' ' + 'height:' + ' ' + item.height / 10 + ' ' + 'meters', item.imageUrlFront, item.imageUrlBack, item.types, item.abilities);
-            console.log(item);
         });
     }
 
