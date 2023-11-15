@@ -78,30 +78,33 @@ let pokemonRepository = (function () {
         });
     }
 
-    function searchPokemon() { 
-	    let input = document.getElementById('searchbar').value 
-	    input = input.toLowerCase(); 
-	    let x = document.getElementsByClassName('pokebutton'); 
-	
-	    for (i = 0; i < x.length; i++) { 
-           let pokebutton = x[i].getElementsByClassName('btn')[0];
-           let btn = pokebutton.innerText.toLowerCase()
-		    if (!btn.includes(input)) { 
-                x[i].style.display="none"; 
-            } 
-            else { 
-                x[i].style.display="";				 
-            } 
-        } 
-} 
+    // Search bar feature
+    function searchPokemon() {
+        let input = document.getElementById('searchbar').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('pokebutton');
+
+        for (i = 0; i < x.length; i++) {
+            let pokebutton = x[i].getElementsByClassName('btn')[0];
+            let btn = pokebutton.innerText.toLowerCase()
+            if (!btn.includes(input)) {
+                x[i].style.display = "none";
+            }
+            else {
+                x[i].style.display = "";
+            }
+        }
+    }
 
 
-    function showModal(title, text, img, imgBack) {
+    function showModal(title, text, img, imgBack, poketype, pokeabilities) {
         let imageElement = document.createElement('img');
         imageElement.setAttribute('src', img);
         imageElement.setAttribute('width', '304');
         imageElement.setAttribute('height', '228');
         imageElement.setAttribute('alt', 'pokemon picture front');
+
+
 
         let imageElementBack = document.createElement('img');
 
@@ -119,6 +122,7 @@ let pokemonRepository = (function () {
         let contentElement = document.createElement('p');
         contentElement.innerText = text;
 
+
         let pokeInfo = document.querySelector('#pokeInfo');
         pokeInfo.innerHTML = '';
         pokeInfo.appendChild(imageElement);
@@ -126,13 +130,33 @@ let pokemonRepository = (function () {
             pokeInfo.appendChild(imageElementBack);
         }
         pokeInfo.appendChild(contentElement);
+
+
+        let contentPoketype = document.createElement('p');
+        contentPoketype.innerText = 'type:' + ' ';
+        for (i = 0; i < poketype.length; i++) {
+            let poketypeName = poketype[i].type.name;
+            contentPoketype.innerText = contentPoketype.innerText + poketypeName + ' '
+        }
+        pokeInfo.appendChild(contentPoketype);
+
+
+        let contentPokeAbilities = document.createElement('p');
+        contentPokeAbilities.innerText = 'abilities:' + ' ';
+        for (i = 0; i < pokeabilities.length; i++) {
+            let pokeabilitiesName = pokeabilities[i].ability.name;
+            contentPokeAbilities.innerText = contentPokeAbilities.innerText + pokeabilitiesName + ' '
+        }
+        pokeInfo.appendChild(contentPokeAbilities);
+
+
     }
 
 
 
     function showDetails(item) {
         pokemonRepository.loadDetails(item).then(function () {
-            showModal(item.name, ' ' + 'height' + ' ' + item.height / 10 + ' ' + 'meters', item.imageUrlFront, item.imageUrlBack);
+            showModal(item.name, ' ' + 'height:' + ' ' + item.height / 10 + ' ' + 'meters', item.imageUrlFront, item.imageUrlBack, item.types, item.abilities);
             console.log(item);
         });
     }
