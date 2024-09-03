@@ -1,7 +1,7 @@
 # Pokédex App
 
 ## Description
-This Pokédex web application is built with HTML, CSS, JavaScript, and Bootstrap. All the Pokémon information is from the RESTful Pokémon API
+This Pokédex web application is built with HTML, CSS, JavaScript, and Bootstrap. All the Pokémon information is from the RESTful Pokémon API.
 
 ## Link to Project
 https://cmr927.github.io/pokedex-app
